@@ -114,7 +114,13 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   body {
     @apply bg-background text-foreground;
   }
+}
+
+.container {
+  @apply mx-auto max-w-6xl px-4;
+  width: 100%;
 }
