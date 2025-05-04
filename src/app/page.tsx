@@ -1,5 +1,14 @@
-import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import Link from "next/link";
+
+const mockTags = [
+  { name: "전체", count: 30 },
+  { name: "React", count: 10 },
+  { name: "Next.js", count: 5 },
+  { name: "Typescript", count: 8 },
+  { name: "CSS", count: 12 },
+  { name: "HTML", count: 15 },
+];
 
 export default function RootPage() {
   return (
@@ -7,7 +16,23 @@ export default function RootPage() {
       <div className="grid grid-cols-[200px_1fr_220px] gap-6">
         {/* 좌측 사이드바 */}
         <aside>
-          <Card>태그목록</Card>
+          <Card>
+            <CardHeader>
+              <CardTitle>태그 목록</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col gap-3">
+                {mockTags.map((tag) => (
+                  <Link href={`?tag=${tag.name}`} key={tag.name}>
+                    <div className="hover:bg-muted-foreground/10 text-muted-foreground flex items-center justify-between rounded-md p-1.5 text-sm transition-colors">
+                      <span>{tag.name}</span>
+                      <span>{tag.count}</span>
+                    </div>
+                  </Link>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
         </aside>
         <div className="space-y-8">
           {/* 섹션 제목 */}
