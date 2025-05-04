@@ -8,13 +8,13 @@ export default function Header() {
           <span className="font-bold">Hello World</span>
         </Link>
         <nav className="ml-auto flex items-center gap-4">
-          <Link href="/" className="rounded px-2 py-1 font-medium hover:bg-gray-200">
+          <Link href="/" className="hover:bg-muted/50 rounded px-2 py-1 font-medium transition-colors">
             홈
           </Link>
-          <Link href="/blog" className="rounded px-2 py-1 font-medium hover:bg-gray-200">
+          <Link href="/blog" className="hover:bg-muted/50 rounded px-2 py-1 font-medium transition-colors">
             블로그
           </Link>
-          <Link href="/about" className="rounded px-2 py-1 font-medium hover:bg-gray-200">
+          <Link href="/about" className="hover:bg-muted/50 rounded px-2 py-1 font-medium transition-colors">
             소개
           </Link>
         </nav>
