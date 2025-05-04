@@ -18,10 +18,7 @@ const mockPosts = [
     title: "Next.js 블로그",
     description: "Next.js Notion API를 활용하여 개인 블로그를..",
     coverImage: "https://picsum.photos/800/400",
-    tags: [
-      { id: "1", name: "Next.js", count: 1 },
-      { id: "2", name: "React", count: 1 },
-    ],
+    tags: ["Next.js", "React"],
     authors: "Jamie",
     date: "2025-05-04",
   },
@@ -30,10 +27,7 @@ const mockPosts = [
     title: "TypeScript 기초 다지기",
     description: "TypeScript의 기본 문법과 실전에서 자주 사용되는 패턴들을...",
     coverImage: "https://picsum.photos/800/401",
-    tags: [
-      { id: "3", name: "TypeScript", count: 1 },
-      { id: "4", name: "JavaScript", count: 1 },
-    ],
+    tags: ["TypeScript", "JavaScript"],
     authors: "Jamie",
     date: "2025-05-04",
   },
@@ -45,7 +39,7 @@ export default function RootPage() {
       <div className="grid grid-cols-[200px_1fr_220px] gap-6">
         {/* 좌측 사이드바 */}
         <aside>
-          <TagSection tags={mockTags} />
+          <TagSection tagFilters={mockTags} />
         </aside>
         <div className="space-y-8">
           {/* 섹션 제목 */}

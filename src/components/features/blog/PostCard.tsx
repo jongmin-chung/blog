@@ -6,7 +6,7 @@ import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { Calendar, User } from "lucide-react";
 import Image from "next/image";
-import { Post } from "@/types/notion";
+import { Post } from "@/types/blog";
 
 export function PostCard({ post }: Readonly<{ post: Post }>) {
   return (
@@ -28,11 +28,11 @@ export function PostCard({ post }: Readonly<{ post: Post }>) {
         <div className="mb-4 flex flex-wrap gap-2">
           {post.tags?.map((tag) => (
             <Badge
-              key={tag.id}
+              key={tag}
               variant="secondary"
               className="bg-primary/10 text-primary hover:bg-primary/20 font-medium transition-colors"
             >
-              {tag.name}
+              {tag}
             </Badge>
           ))}
         </div>

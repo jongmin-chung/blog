@@ -1,8 +1,8 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
-import { Tag } from "@/types/notion";
+import { TagFilter } from "@/types/blog";
 
-export default function TagSection({ tags }: Readonly<{ tags: Tag[] }>) {
+export default function TagSection({ tagFilters }: Readonly<{ tagFilters: TagFilter[] }>) {
   return (
     <Card>
       <CardHeader>
@@ -10,7 +10,7 @@ export default function TagSection({ tags }: Readonly<{ tags: Tag[] }>) {
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-3">
-          {tags.map((tag) => (
+          {tagFilters.map((tag) => (
             <Link href={`?tag=${tag.name}`} key={tag.name}>
               <div className="hover:bg-muted-foreground/10 text-muted-foreground flex items-center justify-between rounded-md p-1.5 text-sm transition-colors">
                 <span>{tag.name}</span>

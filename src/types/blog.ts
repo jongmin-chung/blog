@@ -1,4 +1,4 @@
-export interface Tag {
+export interface TagFilter {
   id: string;
   name: string;
   count: number;
@@ -9,7 +9,9 @@ export interface Post {
   title: string;
   description?: string;
   coverImage?: string;
-  tags?: Tag[];
+  tags?: string[];
   author?: string;
   date?: string;
+  modifiedDate?: string;
+  slug?: string;
 }
