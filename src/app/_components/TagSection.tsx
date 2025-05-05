@@ -1,8 +1,14 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { TagFilter } from "@/types/blog";
+import { cn } from "@/lib/utils";
 
-export default function TagSection({ tagFilters }: Readonly<{ tagFilters: TagFilter[] }>) {
+interface TagSectionProps {
+  tags: TagFilter[];
+  selectedTag: string;
+}
+
+export default function TagSection({ tags, selectedTag }: Readonly<TagSectionProps>) {
   return (
     <Card>
       <CardHeader>
@@ -10,9 +16,14 @@ export default function TagSection({ tagFilters }: Readonly<{ tagFilters: TagFil
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-3">
-          {tagFilters.map((tag) => (
+          {tags.map((tag) => (
             <Link href={`?tag=${tag.name}`} key={tag.name}>
-              <div className="hover:bg-muted-foreground/10 text-muted-foreground flex items-center justify-between rounded-md p-1.5 text-sm transition-colors">
+              <div
+                className={cn(
+                  "hover:bg-muted-foreground/10 text-muted-foreground flex items-center justify-between rounded-md p-1.5 text-sm transition-colors",
+                  selectedTag === tag.name && "bg-muted-foreground/10 text-foreground font-medium",
+                )}
+              >
                 <span>{tag.name}</span>
                 <span>{tag.count}</span>
               </div>
