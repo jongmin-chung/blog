@@ -2,11 +2,10 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { format } from "date-fns";
-import { ko } from "date-fns/locale";
 import { Calendar, User } from "lucide-react";
 import Image from "next/image";
 import { Post } from "@/types/blog";
+import { formatDate } from "@/lib/date";
 
 export function PostCard({ post }: Readonly<{ post: Post }>) {
   return (
@@ -40,7 +39,9 @@ export function PostCard({ post }: Readonly<{ post: Post }>) {
           {post.title}
         </h2>
         {post.description && (
-          <p className="text-muted-foreground mt-2 line-clamp-2 leading-relaxed">{post.description}</p>
+          <p className="text-muted-foreground mt-2 line-clamp-2 leading-relaxed">
+            {post.description}
+          </p>
         )}
         <div className="text-muted-foreground mt-6 flex items-center gap-x-4 text-sm">
           {post.author && (
@@ -52,7 +53,7 @@ export function PostCard({ post }: Readonly<{ post: Post }>) {
           {post.date && (
             <div className="flex items-center gap-1.5">
               <Calendar className="h-4 w-4" />
-              <time>{format(new Date(post.date), "PPP", { locale: ko })}</time>
+              <time>{formatDate(post.date)}</time>
             </div>
           )}
         </div>
