@@ -3,25 +3,17 @@ import { PostCard } from "@/components/features/blog/PostCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import TagSection from "@/app/_components/TagSection";
 import ProfileSection from "@/app/_components/ProfileSection";
-import { getPublishedPosts } from "@/lib/notion";
-
-const mockTags = [
-  { id: "all", name: "전체", count: 20 },
-  { id: "html", name: "HTML", count: 10 },
-  { id: "css", name: "CSS", count: 5 },
-  { id: "typescript", name: "Typescript", count: 3 },
-  { id: "nextjs", name: "Next.js", count: 3 },
-];
+import { getPublishedPosts, getTags } from "@/lib/notion";
 
 export default async function RootPage() {
-  const posts = await getPublishedPosts();
+  const [posts, tags] = await Promise.all([getPublishedPosts(), getTags()]);
 
   return (
     <div className="container py-8">
       <div className="grid grid-cols-[200px_1fr_220px] gap-6">
         {/* 좌측 사이드바 */}
         <aside>
-          <TagSection tagFilters={mockTags} />
+          <TagSection tagFilters={tags} />
         </aside>
         <div className="space-y-8">
           {/* 섹션 제목 */}
