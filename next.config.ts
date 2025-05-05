@@ -1,6 +1,6 @@
 import type { NextConfig } from "next";
-import createMDX from "@next/mdx"
-import remarkGfm from "remark-gfm";
+import createMDX from "@next/mdx";
+import options from "./mdx.config";
 
 const nextConfig: NextConfig = {
   /* config options here */
@@ -16,9 +16,7 @@ const nextConfig: NextConfig = {
 };
 
 const withMDX = createMDX({
-  options: {
-    remarkPlugins: [remarkGfm], // 정적 mdx 파일
-  }
+  options,
 })
 
 export default withMDX(nextConfig);
