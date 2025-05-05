@@ -6,6 +6,7 @@ import { Card, CardHeader, CardTitle, CardDescription } from "@/components/ui/ca
 import { getPostBySlug } from "@/lib/notion";
 import { formatDate } from "@/lib/date";
 import { MDXRemote } from "next-mdx-remote/rsc";
+import remarkGfm from "remark-gfm";
 
 interface TableOfContents {
   id: string;
@@ -153,7 +154,15 @@ export default async function BlogPost({ params }: Readonly<BlogPostProps>) {
 
           {/* 블로그 본문 */}
           <div className="prose prose-neutral prose-sm dark:prose-invert max-w-none">
-            <MDXRemote source={markdown} />
+            {/* 동적 MDX 파일 Option */}
+            <MDXRemote
+              source={markdown}
+              options={{
+                mdxOptions: {
+                  remarkPlugins: [remarkGfm],
+                },
+              }}
+            />
           </div>
 
           <Separator className="my-16" />
