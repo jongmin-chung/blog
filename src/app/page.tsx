@@ -3,6 +3,7 @@ import { PostCard } from "@/components/features/blog/PostCard";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import TagSection from "@/app/_components/TagSection";
 import ProfileSection from "@/app/_components/ProfileSection";
+import { getPublishedPosts } from "@/lib/notion";
 
 const mockTags = [
   { id: "all", name: "전체", count: 20 },
@@ -12,28 +13,9 @@ const mockTags = [
   { id: "nextjs", name: "Next.js", count: 3 },
 ];
 
-const mockPosts = [
-  {
-    id: "1",
-    title: "Next.js 블로그",
-    description: "Next.js Notion API를 활용하여 개인 블로그를..",
-    coverImage: "https://picsum.photos/800/400",
-    tags: ["Next.js", "React"],
-    authors: "Jamie",
-    date: "2025-05-04",
-  },
-  {
-    id: "2",
-    title: "TypeScript 기초 다지기",
-    description: "TypeScript의 기본 문법과 실전에서 자주 사용되는 패턴들을...",
-    coverImage: "https://picsum.photos/800/401",
-    tags: ["TypeScript", "JavaScript"],
-    authors: "Jamie",
-    date: "2025-05-04",
-  },
-];
+export default async function RootPage() {
+  const posts = await getPublishedPosts();
 
-export default function RootPage() {
   return (
     <div className="container py-8">
       <div className="grid grid-cols-[200px_1fr_220px] gap-6">
@@ -58,8 +40,8 @@ export default function RootPage() {
 
           {/* 블로그 카드 그리드 */}
           <div className="grid gap-4">
-            {mockPosts.map((post) => (
-              <Link href={`/blog/${post.id}`} key={post.id}>
+            {posts.map((post) => (
+              <Link href={`/blog/${post.slug}`} key={post.id}>
                 <PostCard post={post} />
               </Link>
             ))}
