@@ -38,9 +38,9 @@ export default async function RootPage({ searchParams }: Readonly<SearchTagProps
 
           {/* 블로그 카드 그리드 */}
           <div className="grid gap-4">
-            {posts.map((post) => (
+            {posts.map((post, idx) => (
               <Link href={`/blog/${post.slug}`} key={post.id}>
-                <PostCard post={post} />
+                <PostCard post={post} isFirst={idx === 0} />
               </Link>
             ))}
           </div>
