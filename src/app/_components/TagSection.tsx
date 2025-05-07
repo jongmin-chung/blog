@@ -2,13 +2,15 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import Link from "next/link";
 import { TagFilter } from "@/types/blog";
 import { cn } from "@/lib/utils";
+import { use } from "react";
 
 interface TagSectionProps {
-  tags: TagFilter[];
+  tags: Promise<TagFilter[]>;
   selectedTag: string;
 }
 
 export default function TagSection({ tags, selectedTag }: Readonly<TagSectionProps>) {
+  const allTags = use(tags);
   return (
     <Card>
       <CardHeader>
@@ -16,7 +18,7 @@ export default function TagSection({ tags, selectedTag }: Readonly<TagSectionPro
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-3">
-          {tags.map((tag) => (
+          {allTags.map((tag) => (
             <Link href={`?tag=${tag.name}`} key={tag.name}>
               <div
                 className={cn(
