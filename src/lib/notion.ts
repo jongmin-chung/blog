@@ -74,7 +74,7 @@ export const getPublishedPosts = unstable_cache(
       nextCursor: response.next_cursor,
     };
   },
-  undefined,
+  ["posts"],
   { tags: ["posts"] },
 );
 
