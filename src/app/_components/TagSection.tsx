@@ -5,12 +5,12 @@ import { cn } from "@/lib/utils";
 import { use } from "react";
 
 interface TagSectionProps {
-  tags: Promise<TagFilter[]>;
+  tagsPromise: Promise<TagFilter[]>;
   selectedTag: string;
 }
 
-export default function TagSection({ tags, selectedTag }: Readonly<TagSectionProps>) {
-  const allTags = use(tags);
+export default function TagSection({ tagsPromise, selectedTag }: Readonly<TagSectionProps>) {
+  const tags = use(tagsPromise);
   return (
     <Card>
       <CardHeader>
@@ -18,7 +18,7 @@ export default function TagSection({ tags, selectedTag }: Readonly<TagSectionPro
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-3">
-          {allTags.map((tag) => (
+          {tags.map((tag) => (
             <Link href={`?tag=${tag.name}`} key={tag.name}>
               <div
                 className={cn(

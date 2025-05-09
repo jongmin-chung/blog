@@ -18,7 +18,7 @@ interface GetPublishedPostsRequest {
   startCursor?: string;
 }
 
-interface GetPublishedPostsResponse {
+export interface GetPublishedPostsResponse {
   posts: Post[];
   hasMore: boolean;
   nextCursor?: string | null;

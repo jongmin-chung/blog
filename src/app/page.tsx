@@ -23,7 +23,7 @@ export default async function RootPage({ searchParams }: Readonly<Props>) {
         {/* 좌측 사이드바 */}
         <aside>
           <Suspense fallback={<TagSectionSkeleton />}>
-            <TagSection tags={tags} selectedTag={selectedTag} />
+            <TagSection tagsPromise={tags} selectedTag={selectedTag} />
           </Suspense>
         </aside>
         <div className="space-y-8">

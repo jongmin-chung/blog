@@ -1,22 +1,32 @@
+"use client";
+
 import Link from "next/link";
 import { PostCard } from "@/components/features/blog/PostCard";
-import { getPublishedPosts } from "@/lib/notion";
+import { GetPublishedPostsResponse } from "@/lib/notion";
+import { use } from "react";
+import { Button } from "@/components/ui/button";
 
 interface Props {
-  selectedTag: string;
-  selectedSort: string;
+  postsPromise: Promise<GetPublishedPostsResponse>;
 }
 
-export default async function PostsSuspense({ selectedTag, selectedSort }: Readonly<Props>) {
-  const { posts } = await getPublishedPosts({ tag: selectedTag, sort: selectedSort });
+export default function PostsSuspense({ postsPromise }: Readonly<Props>) {
+  const { posts } = use(postsPromise);
 
   return (
-    <div className="grid gap-4">
-      {posts.map((post, idx) => (
-        <Link href={`/blog/${post.slug}`} key={post.id}>
-          <PostCard post={post} isFirst={idx === 0} />
-        </Link>
-      ))}
+    <div className="space-y-6">
+      <div className="grid gap-4">
+        {posts.map((post, index) => (
+          <Link href={`/blog/${post.slug}`} key={post.id}>
+            <PostCard post={post} isFirst={index === 0} />
+          </Link>
+        ))}
+      </div>
+      <div>
+        <Button variant="outline" size="lg" className="w-full">
+          더보기
+        </Button>
+      </div>
     </div>
   );
 }
