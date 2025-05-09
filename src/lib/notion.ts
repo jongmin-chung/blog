@@ -25,9 +25,9 @@ export interface GetPublishedPostsResponse {
 }
 
 export const getPublishedPosts = async ({
-  tag,
+  tag = "전체",
   sort = "latest",
-  pageSize = 10,
+  pageSize = 2,
   startCursor,
 }: GetPublishedPostsRequest = {}): Promise<GetPublishedPostsResponse> => {
   const response = await notion.databases.query({
