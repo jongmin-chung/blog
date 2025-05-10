@@ -2,8 +2,7 @@ import { MetadataRoute } from "next";
 import { getPublishedPosts } from "@/lib/notion";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // TODO: 상수로 관리
-  const baseUrl = "https://notion-blog-nextjs.vercel.app";
+  const baseUrl = `${process.env.NEXT_PUBLIC_SITE_URL}`;
 
   const staticPages = [
     {
