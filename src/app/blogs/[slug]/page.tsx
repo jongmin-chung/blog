@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
 import { Badge } from "@/components/ui/badge";
 import { CalendarDays, User } from "lucide-react";
-import { getPostBySlug } from "@/lib/notion";
+import { getPostBySlug, getPublishedPosts } from "@/lib/notion";
 import { formatDate } from "@/lib/date";
 import { MDXRemote } from "next-mdx-remote/rsc";
 import mdxOptions from "../../../../mdx.config";
@@ -13,6 +13,45 @@ import withTocExport from "@stefanprobst/rehype-extract-toc/mdx";
 import rehypeSanitize from "rehype-sanitize";
 import Utterances from "@/components/Utterances";
 import { notFound } from "next/navigation";
+import { Metadata } from "next";
+
+// 동적 메타데이터 생성
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const { post } = await getPostBySlug(slug);
+
+  if (!post) {
+    return {
+      title: "포스트를 찾을 수 없습니다",
+      description: "요청하신 블로그 포스트를 찾을 수 없습니다.",
+    };
+  }
+
+  return {
+    title: post.title,
+    description: post.description ?? "",
+    keywords: post.tags,
+    authors: [{ name: post.author || "제이미" }],
+    publisher: "제이미",
+    alternates: {
+      canonical: `/blog/${post.slug}`,
+    },
+    openGraph: {
+      title: post.title,
+      description: post.description,
+      url: `/blogs/${post.slug}`,
+      type: "article",
+      publishedTime: post.date,
+      modifiedTime: post.modifiedDate,
+      authors: post.author ?? "제이미",
+      tags: post.tags,
+    },
+  };
+}
 
 interface TocEntry {
   value: string;
@@ -20,6 +59,15 @@ interface TocEntry {
   id?: string;
   children?: Array<TocEntry>;
 }
+
+export const generateStaticParams = async () => {
+  const { posts } = await getPublishedPosts();
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+};
+
+export const revalidate = 60; // 1분마다 재검증
 
 function TableOfContentsLink({ item }: { item: TocEntry }) {
   return (

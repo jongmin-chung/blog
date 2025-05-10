@@ -16,7 +16,7 @@ export default function Utterances() {
     scriptEl.src = "https://utteranc.es/client.js";
 
     const username = "jongmin-chung";
-    const repoName = "blog";
+    const repoName = "blogs";
 
     scriptEl.setAttribute("repo", `${username}/${repoName}`);
     scriptEl.setAttribute("issue-term", "pathname");

@@ -5,7 +5,7 @@ export default function Footer() {
         <p className="text-muted-foreground text-sm">
           Copyright ©{" "}
           <a href="#" className="rounded px-1 py-1 font-medium underline hover:bg-gray-100">
-            정종민
+            제이미
           </a>
         </p>
       </div>

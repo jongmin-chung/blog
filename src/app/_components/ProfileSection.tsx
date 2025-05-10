@@ -25,7 +25,7 @@ export default function ProfileSection() {
               <div className="h-36 w-36 overflow-hidden rounded-full">
                 <Image
                   src="/images/profile-light.png"
-                  alt="Jamie's profile"
+                  alt="제이미 profile"
                   width={144}
                   height={144}
                   className="object-cover"
@@ -35,7 +35,7 @@ export default function ProfileSection() {
           </div>
 
           <div className="text-center">
-            <h3 className="text-lg font-bold">Jamie</h3>
+            <h3 className="text-lg font-bold">제이미</h3>
             <p className="text-primary text-sm">Software Engineer</p>
           </div>
 

@@ -65,7 +65,7 @@ export default function PostsSuspense({ postsPromise }: Readonly<Props>) {
     <div className="space-y-6">
       <div className="grid gap-4">
         {allPosts.map((post, index) => (
-          <Link href={`/blog/${post.slug}`} key={post.id}>
+          <Link href={`/blogs/${post.slug}`} key={post.id}>
             <PostCard post={post} isFirst={index === 0} />
           </Link>
         ))}

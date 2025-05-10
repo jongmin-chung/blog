@@ -6,6 +6,15 @@ import { Suspense } from "react";
 import PostsSkeleton from "@/components/features/blog/PostsSkeleton";
 import PostsSuspense from "@/components/features/blog/PostsSuspense";
 import TagSectionSkeleton from "@/app/_components/TagSectionSkeleton";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "홈",
+  description: "제이미의 블로그입니다. 개발과 관련된 다양한 주제를 다룹니다.",
+  alternates: {
+    canonical: "/",
+  },
+};
 
 interface Props {
   searchParams: Promise<{ tag?: string; sort?: string }>;
