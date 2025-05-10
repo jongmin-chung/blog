@@ -157,7 +157,7 @@ export const getPostBySlug = async (
   slug: string,
 ): Promise<{
   markdown: string;
-  post: Post;
+  post: Post | null;
 }> => {
   const response = await notion.databases.query({
     database_id: process.env.NOTION_DATABASE_ID!,
@@ -178,6 +178,13 @@ export const getPostBySlug = async (
       ],
     },
   });
+
+  if (!response.results[0]) {
+    return {
+      markdown: "",
+      post: null,
+    };
+  }
 
   const mdBlocks = await n2m.pageToMarkdown(response.results[0].id);
   const { parent } = n2m.toMarkdownString(mdBlocks);
