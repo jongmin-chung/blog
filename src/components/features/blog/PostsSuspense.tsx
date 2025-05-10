@@ -18,6 +18,7 @@ export default function PostsSuspense({ postsPromise }: Readonly<Props>) {
   const searchParams = useSearchParams();
   const tag = searchParams.get("tag");
   const sort = searchParams.get("sort");
+  const pageSize = 2;
 
   const fetchPosts = async ({ pageParam }: { pageParam: string | undefined }) => {
     const params = new URLSearchParams();
@@ -30,6 +31,7 @@ export default function PostsSuspense({ postsPromise }: Readonly<Props>) {
     if (pageParam) {
       params.set("startCursor", pageParam);
     }
+    params.set("pageSize", pageSize.toString());
 
     const response = await fetch(`/api/posts?${params.toString()}`);
     if (!response.ok) {
@@ -39,7 +41,7 @@ export default function PostsSuspense({ postsPromise }: Readonly<Props>) {
   };
 
   const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
-    queryKey: ["posts", tag, sort],
+    queryKey: ["posts", tag, sort, pageSize],
     queryFn: fetchPosts,
     initialPageParam: undefined,
     getNextPageParam: (lastPage) => lastPage.nextCursor,
