@@ -1,4 +1,5 @@
 import Link from "next/link";
+import ThemeToggle from "@/components/theme/ThemeToggle";
 
 export default function Header() {
   return (
@@ -21,6 +22,10 @@ export default function Header() {
               소개
             </Link>
           </nav>
+
+          <div className="flex items-center justify-end">
+            <ThemeToggle />
+          </div>
         </div>
       </div>
     </header>

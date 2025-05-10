@@ -1,15 +1,17 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
+import { useTheme } from "next-themes";
 
 export default function Utterances() {
   const commentsEl = useRef<HTMLDivElement>(null);
-  const [status, setStatus] = useState<"pending" | "success" | "failed">("pending");
+  const { theme } = useTheme();
+  const themeRef = useRef(theme);
 
   useEffect(() => {
+    themeRef.current = theme;
+
     const scriptEl = document.createElement("script");
-    scriptEl.onload = () => setStatus("success");
-    scriptEl.onerror = () => setStatus("failed");
     scriptEl.async = true;
     scriptEl.src = "https://utteranc.es/client.js";
 
@@ -18,16 +20,37 @@ export default function Utterances() {
 
     scriptEl.setAttribute("repo", `${username}/${repoName}`);
     scriptEl.setAttribute("issue-term", "pathname");
-    scriptEl.setAttribute("theme", "preferred-color-scheme");
+    scriptEl.setAttribute("theme", `github-${themeRef.current}`);
     scriptEl.setAttribute("crossorigin", "anonymous");
     commentsEl.current?.appendChild(scriptEl);
+
+    return () => {
+      if (commentsEl.current) {
+        const script = commentsEl.current.querySelector("script");
+        if (script) script.remove();
+      }
+    };
   }, []);
 
-  return (
-    <div className="comments-wrapper">
-      {status === "failed" && <div>Error. Please try again.</div>}
-      {status === "pending" && <div>Loading script...</div>}
-      <div ref={commentsEl} />
-    </div>
-  );
+  useEffect(() => {
+    themeRef.current = theme;
+
+    const timer = setTimeout(() => {
+      const utterancesIframe =
+        commentsEl.current?.querySelector<HTMLIFrameElement>(".utterances-frame");
+      if (utterancesIframe?.contentWindow) {
+        utterancesIframe.contentWindow.postMessage(
+          {
+            type: "set-theme",
+            theme: `github-${theme}`,
+          },
+          "https://utteranc.es",
+        );
+      }
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [theme]);
+
+  return <div ref={commentsEl} className="comments-wrapper" />;
 }
